@@ -1,6 +1,13 @@
 # GXU_Tools
 广西大学校园网自动登录 自动评教 自动查考试、信息查询
 
+---
+## 部分界面
+![校园网登录界面](https://036aaa68.telegraph-image-2r3.pages.dev/file/6a196661fa7a9ad1eecbf.png)
+![教务系统界面](https://036aaa68.telegraph-image-2r3.pages.dev/file/f6019b05f7ab293e49318.png)
+
+
+
 ## 致谢
 wxWidgets: https://github.com/wxWidgets/wxWidgets </br>
 wxFormBuilder：https://github.com/wxFormBuilder/wxFormBuilder </br>
@@ -22,7 +29,7 @@ libhv： https://github.com/ithewei/libhv </br>
 下面是评教的js脚本
 
 ``` javascript
-(async () => {
+async () => {
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 await sleep(900);
 $(".ui-pg-selbox").val(5000);
