@@ -85,6 +85,7 @@ for (var i = 0; i < firstCellList.length; i++) {
 wxWidgets: https://github.com/wxWidgets/wxWidgets </br>
 wxFormBuilder：https://github.com/wxFormBuilder/wxFormBuilder </br>
 libhv： https://github.com/ithewei/libhv </br>
+广西大学学生科技协会（B站）关注科协谢谢喵~：https://space.bilibili.com/187447234
 
 
 
