@@ -2,9 +2,9 @@
 广西大学校园网自动登录 自动评教 自动查考试、信息查询
 
 ## 致谢
-wxWidgets: https://github.com/wxWidgets/wxWidgets
-wxFormBuilder：https://github.com/wxFormBuilder/wxFormBuilder
-libhv： https://github.com/ithewei/libhv
+wxWidgets: https://github.com/wxWidgets/wxWidgets </br>
+wxFormBuilder：https://github.com/wxFormBuilder/wxFormBuilder </br>
+libhv： https://github.com/ithewei/libhv </br>
 
 ## 碎碎念
 ### 关于选型
@@ -19,6 +19,63 @@ libhv： https://github.com/ithewei/libhv
 使用webview构建评教请求很简单，直接调网站的js就好，如果想自行构建有点难度，请求中很多项的意思不明确，再加上请求要带上一段网页中的id（类似csrf），还是调网站自己的js容易点。
 另外，评教的保存接口没有太多校验：当你已经提交对某个老师的评价后，本是不能改动的，但是可以通过js向评教的保存接口发送该条数据，这么操作就会让这个老师处于“未评价”状态，此时又可以提交新的评价了。（其他模块应该都是窟窿，只是没人研究而已）
 
+下面是评教的js脚本
+
+``` javascript
+(async () => {
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+await sleep(900);
+$(".ui-pg-selbox").val(5000);
+await sleep(900);
+$(".ui-pg-selbox").change();
+await sleep(900);
+var firstCellList = $("tbody:first tr").not(':first').find("td:visible:first");
+var teCellList = $("tbody:first tr:visible").find('td:visible:eq(1)');
+for (var i = 0; i < firstCellList.length; i++) {
+    var cell = $("tbody:first tr").not(':first').find("td:visible:first").eq(i);
+    $("tbody:first tr").not(':first').find("td:visible:first").eq(i).click();
+    await sleep(500);
+
+	  if (cell.text() !== "提交") {
+        $(".radio-inline.input-xspj.input-xspj-1 input").prop("checked", true);
+        $(".radio-inline.input-xspj.input-xspj-2 input:first").click();
+        var bfztxfs = $("#bfztxfs").val();
+        var flagTf = true;
+        var bfzpf;
+        var panel_pjdx = $.find("div.panel-pjdx");
+        if (bfztxfs == "2") {
+            bfzpf = calculatePjmbPjzf2(panel_pjdx);
+        } else {
+            bfzpf = calculatePjmbPjzf(panel_pjdx);
+        }
+        var xspj_body = $("div.xspj-body");
+        var jxb_id = $(xspj_body).data("jxb_id");
+        var jgh_id = $(xspj_body).data("jgh_id");
+        jQuery.ajaxSetup({ async: false });
+        jQuery.post(_path + '/xspjgl/xspj_cxSftf.html', { bfzpf: bfzpf, jxb_id: jxb_id, jgh_id: jgh_id }, function (data) {
+            if (data != 0) {
+                flagTf = false;
+                $.alert("同学，存在分数与当前评价分相同，请做调整");
+                return flagTf;
+            }
+        }, 'json');
+
+        var dataMap = buildRequestMap.call(this) || {};
+        dataMap["tjzt"] = "0";
+        jQuery.ajax({
+            url: _path + "/xspjgl/xspj_tjXspj.html",
+            type: "post",
+            dataType: "json",
+            data: dataMap,
+            async: false,
+
+        });
+        await sleep(200);
+    }
+}
+})();
+
+```
 
 ---
 ## 软件说明书
