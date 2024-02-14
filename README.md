@@ -1,9 +1,10 @@
 # GXU_Tools
 广西大学校园网自动登录 自动评教 自动查考试、信息查询
 
-## 技术栈
-wxWidgets
-libhv
+## 致谢
+wxWidgets: https://github.com/wxWidgets/wxWidgets
+wxFormBuilder：https://github.com/wxFormBuilder/wxFormBuilder
+libhv： https://github.com/ithewei/libhv
 
 ## 碎碎念
 ### 关于选型
